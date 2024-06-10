@@ -1,0 +1,265 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    background-image: url('images/BlueyWorld.png');
+    background-size: cover;
+    background-position: center;
+}
+
+#bluey-option {
+    background-image: url('images/Bluey.png');
+    background-size: cover;
+    border-radius: 50%;
+}
+
+#bingo-option {
+    background-image: url('images/Bingo.png');
+    background-size: cover;
+    border-radius: 50%;
+}
+
+#score-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.score-figure {
+    height: 100px; /* Doppelt so groß */
+    margin: 0 10px;
+}
+
+#score-board {
+    font-size: 48px; /* Größer für Kinder */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    color: #0c87c9; /* Blueys Farbe */
+}
+
+#game-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+#character-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7); /* Hintergrund für bessere Sichtbarkeit */
+    border-radius: 10px;
+    cursor: pointer; /* Cursor für Klickbarkeit */
+}
+
+.character-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.character-option img {
+    width: 80px; /* Doppelt so groß */
+    height: 80px; /* Doppelt so groß */
+    border: 2px solid #333;
+    border-radius: 50%;
+}
+
+.character-option span {
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.character-option.selected img {
+    border-color: yellow;
+}
+
+#game-board-container {
+    width: 800px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(10, 80px); /* Nur 10 Felder, doppelt so groß */
+    grid-template-rows: repeat(10, 80px); /* Nur 10 Felder, doppelt so groß */
+    gap: 4px; /* Doppelt so groß */
+    background-color: #ffccff;
+}
+
+.cell {
+    width: 80px; /* Doppelt so groß */
+    height: 80px; /* Doppelt so groß */
+    background-color: #f0e68c; /* Bunter Hintergrund */
+    border: 2px solid #333; /* Doppelt so groß */
+}
+
+.pacman {
+    background-size: cover;
+    border-radius: 50%;
+    background-color: yellow; /* Hintergrundfarbe für Pacman */
+}
+
+.ghost {
+    background-image: url('images/gull.png');
+    background-size: cover;
+    border-radius: 50%;
+    background-color: red; /* Hintergrundfarbe für Geist */
+}
+
+.wall {
+    background-color: blue;
+}
+
+.food {
+    background-image: url('images/Dad.png');
+    background-size: cover;
+    border-radius: 50%;
+    background-color: green; /* Hintergrundfarbe für Futter */
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.jump {
+    animation: jump 1s;
+}
+
+@keyframes jump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-40px); } /* Höherer Sprung */
+}
+
+#fireworks-container {
+    position: absolute;
+    top: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.firework {
+    width: 50px; /* Größer */
+    height: 50px; /* Größer */
+    border-radius: 50%;
+    position: absolute;
+    animation: firework 1s ease-in-out infinite;
+}
+
+.firework1 {
+    background-color: red;
+    animation-delay: 0s;
+    left: 20%;
+}
+
+.firework2 {
+    background-color: yellow;
+    animation-delay: 0.2s;
+    left: 40%;
+}
+
+.firework3 {
+    background-color: blue;
+    animation-delay: 0.4s;
+    left: 60%;
+}
+
+.firework4 {
+    background-color: green;
+    animation-delay: 0.6s;
+    left: 80%;
+}
+
+.firework5 {
+    background-color: purple;
+    animation-delay: 0.8s;
+    left: 30%;
+}
+
+.firework6 {
+    background-color: orange;
+    animation-delay: 1s;
+    left: 70%;
+}
+
+@keyframes firework {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(3); /* Größeres Feuerwerk */
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+#congrats-overlay, #ohno-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.congrats-message, .ohno-message {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 32px;
+}
+
+.congrats-message h1, .ohno-message h1 {
+    color: #0c87c9; /* Blueys Farbe */
+}
+
+.congrats-message button, .ohno-message button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: #0c87c9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ohno-message {
+    color: #ff6666; /* Sanfter Rotton für eine traurige, aber nicht zu traurige Nachricht */
+}
