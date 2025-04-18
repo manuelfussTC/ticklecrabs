@@ -1,7 +1,9 @@
 const gameBoard = document.getElementById('game-board');
 const scoreBoard = document.getElementById('score');
-const blueyOption = document.getElementById('bluey-option');
-const bingoOption = document.getElementById('bingo-option');
+const blueyOptionContainer = document.getElementById('bluey-option-container');
+const bingoOptionContainer = document.getElementById('bingo-option-container');
+const gullActiveSelect = document.getElementById('gull-active');
+const gullSpeedSelect = document.getElementById('gull-speed');
 const boardSize = 10; // Nur halb so viele Felder
 let pacman = { x: 0, y: 0 };
 let ghosts = [{ x: 9, y: 9, stuckCount: 0, lastMoves: [] }];
@@ -9,6 +11,8 @@ let foods = [];
 let score = 0;
 const maxFoods = 2;
 let pacmanImage = 'images/Bluey.png';
+let gullActive = true;
+let gullSpeed = 500; // Standard: mittel (500ms)
 const walls = [
     { x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 },
     { x: 4, y: 4 }, { x: 4, y: 5 },
@@ -18,13 +22,43 @@ const walls = [
 let gameInterval;
 let gamePaused = false;
 
-blueyOption.addEventListener('click', () => {
+// Event-Listener für die Möwen-Einstellungen
+gullActiveSelect.addEventListener('change', updateGullSettings);
+gullSpeedSelect.addEventListener('change', updateGullSettings);
+
+function updateGullSettings() {
+    gullActive = gullActiveSelect.value === 'true';
+    
+    // Geschwindigkeit basierend auf Auswahl setzen
+    switch(gullSpeedSelect.value) {
+        case 'slow':
+            gullSpeed = 800; // langsam: 800ms
+            break;
+        case 'medium':
+            gullSpeed = 500; // mittel: 500ms
+            break;
+        case 'fast':
+            gullSpeed = 300; // schnell: 300ms
+            break;
+    }
+    
+    // Spiel neu starten, um Einstellungen anzuwenden
+    restartGameWithSettings();
+}
+
+function restartGameWithSettings() {
+    stopGame();
+    resetGame();
+    startGame();
+}
+
+blueyOptionContainer.addEventListener('click', () => {
     pacmanImage = 'images/Bluey.png';
     updateCharacterSelection();
     drawPacman();
 });
 
-bingoOption.addEventListener('click', () => {
+bingoOptionContainer.addEventListener('click', () => {
     pacmanImage = 'images/Bingo.png';
     updateCharacterSelection();
     drawPacman();
@@ -33,9 +67,9 @@ bingoOption.addEventListener('click', () => {
 function updateCharacterSelection() {
     document.querySelectorAll('.character-option').forEach(option => option.classList.remove('selected'));
     if (pacmanImage.includes('Bluey')) {
-        blueyOption.classList.add('selected');
+        blueyOptionContainer.classList.add('selected');
     } else {
-        bingoOption.classList.add('selected');
+        bingoOptionContainer.classList.add('selected');
     }
 }
 
@@ -59,6 +93,8 @@ function drawPacman() {
 }
 
 function drawGhosts() {
+    if (!gullActive) return; // Wenn Möwe deaktiviert ist, nicht zeichnen
+    
     ghosts.forEach(ghost => {
         const cell = document.querySelector(`.cell[data-x='${ghost.x}'][data-y='${ghost.y}']`);
         cell.classList.add('ghost');
@@ -145,7 +181,7 @@ function movePacman(event) {
 }
 
 function moveGhosts() {
-    if (gamePaused) return; // Spiel pausiert
+    if (gamePaused || !gullActive) return; // Nicht bewegen, wenn pausiert oder deaktiviert
 
     ghosts.forEach(ghost => {
         document.querySelector(`.cell[data-x='${ghost.x}'][data-y='${ghost.y}']`).classList.remove('ghost');
@@ -269,6 +305,8 @@ function generateFood() {
 }
 
 function checkCollision() {
+    if (!gullActive) return; // Keine Kollisionsprüfung, wenn Möwe deaktiviert ist
+    
     ghosts.forEach(ghost => {
         if (ghost.x === pacman.x && ghost.y === pacman.y) {
             stopGame();
@@ -294,7 +332,10 @@ function resetGame() {
 
 function startGame() {
     gamePaused = false;
-    gameInterval = setInterval(moveGhosts, 500); // Geist bewegt sich alle 500ms
+    if (gameInterval) {
+        clearInterval(gameInterval);
+    }
+    gameInterval = setInterval(moveGhosts, gullSpeed); // Geschwindigkeit aus Einstellungen verwenden
     document.addEventListener('keydown', movePacman);
 }
 

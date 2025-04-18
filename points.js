@@ -32,9 +32,7 @@ function updateScore() {
 
     // Überprüfen, ob alle Freunde gefunden wurden
     if (friendIndex > 16) {
-        setTimeout(() => {
-            showCongratsOverlay();
-        }, 1500); // Verzögerung, um das letzte Feuerwerk zu sehen
+        showCongratsOverlay(); // Sofort zeigen, ohne Verzögerung
     }
 }
 
@@ -138,12 +136,23 @@ function showCongratsOverlay() {
 }
 
 function showOhNoOverlay() {
-    // Erstelle das Overlay
+    // Holen der aktuellen Möweneinstellungen
+    const gullActive = document.getElementById('gull-active').value === 'true';
+    
+    // Erstelle das Overlay mit angepasster Nachricht
     const overlay = document.createElement('div');
     overlay.id = 'ohno-overlay';
+    
+    let message = "";
+    if (gullActive) {
+        message = "Schade, die Möwe hat euch gefangen! Macht nichts, nochmal versuchen!";
+    } else {
+        message = "Spiel beendet! Versuche es nochmal!";
+    }
+    
     overlay.innerHTML = `
         <div class="ohno-message">
-            <h1>Schade, die Möwe hat euch gefangen! Macht nichts, nochmal versuchen!</h1>
+            <h1>${message}</h1>
             <button id="close-ohno-overlay">OK</button>
         </div>
     `;

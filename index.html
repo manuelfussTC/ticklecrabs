@@ -14,14 +14,34 @@
     <img src="images/GrannyBluey.png" alt="Right Figure" class="score-figure" id="granny-bluey">
 </div>
 <div id="game-container">
-    <div id="character-selection">
-        <div class="character-option cell" id="bluey-option">
-<!--            <img src="images/Bluey.png" alt="Bluey">-->
-<!--            <span>Bluey</span>-->
+    <div id="side-controls">
+        <div id="character-selection">
+            <div class="character-option" id="bluey-option-container">
+                <div id="bluey-option"></div>
+                <span>Bluey</span>
+            </div>
+            <div class="character-option" id="bingo-option-container">
+                <div id="bingo-option"></div>
+                <span>Bingo</span>
+            </div>
         </div>
-        <div class="character-option cell" id="bingo-option">
-<!--            <img src="images/Bingo.png" alt="Bingo">-->
-<!--            <span>Bingo</span>-->
+        
+        <div id="gull-controls">
+            <div class="control-group">
+                <label for="gull-active">🦅 Möwe im Spiel:</label>
+                <select id="gull-active" class="game-select">
+                    <option value="true" selected>Ja</option>
+                    <option value="false">Nein</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="gull-speed">⚡ Möwen-Tempo:</label>
+                <select id="gull-speed" class="game-select">
+                    <option value="slow">Langsam</option>
+                    <option value="medium" selected>Mittel</option>
+                    <option value="fast">Schnell</option>
+                </select>
+            </div>
         </div>
     </div>
     <div id="game-board-container">
