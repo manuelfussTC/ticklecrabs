@@ -345,6 +345,55 @@ function stopGame() {
     document.removeEventListener('keydown', movePacman);
 }
 
+// Magischer Effekt für besondere Ereignisse
+let magicModeActive = false;
+
+function activateMagicMode() {
+    if (magicModeActive) return;
+    
+    magicModeActive = true;
+    
+    // Regenbogen-Effekt um das Spielfeld
+    const gameBoard = document.getElementById('game-board');
+    gameBoard.classList.add('rainbow-effect');
+    
+    // Pacman wird hüpfend
+    const pacmanCell = document.querySelector('.pacman');
+    if (pacmanCell) pacmanCell.classList.add('bounce');
+    
+    // Mache Geister drehend
+    const ghostCells = document.querySelectorAll('.ghost');
+    ghostCells.forEach(ghost => ghost.classList.add('spin'));
+    
+    // Mache Essen pulsierend
+    const foodCells = document.querySelectorAll('.food');
+    foodCells.forEach(food => food.classList.add('grow-shrink'));
+    
+    // Nach 5 Sekunden zurücksetzen
+    setTimeout(() => {
+        deactivateMagicMode();
+    }, 5000);
+}
+
+function deactivateMagicMode() {
+    magicModeActive = false;
+    
+    const gameBoard = document.getElementById('game-board');
+    gameBoard.classList.remove('rainbow-effect');
+    
+    const pacmanCell = document.querySelector('.pacman');
+    if (pacmanCell) pacmanCell.classList.remove('bounce');
+    
+    const ghostCells = document.querySelectorAll('.ghost');
+    ghostCells.forEach(ghost => ghost.classList.remove('spin'));
+    
+    const foodCells = document.querySelectorAll('.food');
+    foodCells.forEach(food => food.classList.remove('grow-shrink'));
+}
+
+// Exportiere für andere Dateien
+window.activateMagicMode = activateMagicMode;
+
 document.addEventListener('DOMContentLoaded', () => {
     createBoard();
     drawPacman();
@@ -353,4 +402,12 @@ document.addEventListener('DOMContentLoaded', () => {
     generateFood();
     drawFoods();
     startGame();
+    
+    // Zufällig den magischen Modus aktivieren
+    setInterval(() => {
+        // 10% Chance alle 30 Sekunden
+        if (Math.random() < 0.1 && !gamePaused) {
+            activateMagicMode();
+        }
+    }, 30000);
 });

@@ -354,3 +354,45 @@ body {
 .ohno-message {
     color: #ff6666; /* Sanfter Rotton für eine traurige, aber nicht zu traurige Nachricht */
 }
+
+.rainbow-effect {
+    animation: rainbow-border 2s infinite;
+}
+
+@keyframes rainbow-border {
+    0% { box-shadow: 0 0 15px 5px red; }
+    14% { box-shadow: 0 0 15px 5px orange; }
+    28% { box-shadow: 0 0 15px 5px yellow; }
+    42% { box-shadow: 0 0 15px 5px green; }
+    56% { box-shadow: 0 0 15px 5px blue; }
+    70% { box-shadow: 0 0 15px 5px indigo; }
+    85% { box-shadow: 0 0 15px 5px violet; }
+    100% { box-shadow: 0 0 15px 5px red; }
+}
+
+.bounce {
+    animation: bounce 0.5s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+.spin {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.grow-shrink {
+    animation: grow-shrink 1s infinite alternate;
+}
+
+@keyframes grow-shrink {
+    from { transform: scale(1); }
+    to { transform: scale(1.3); }
+}

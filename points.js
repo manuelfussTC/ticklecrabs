@@ -1,4 +1,5 @@
 let friendIndex = 1;
+let isDancing = false;
 
 function updateScore() {
     // Punktestand aktualisieren
@@ -25,6 +26,11 @@ function updateScore() {
     if (newScore % 5 === 0) {
         showFireworks();
         jumpGrannies();
+    }
+    
+    // Magischen Modus alle 3 Punkte aktivieren
+    if (newScore % 3 === 0) {
+        activateMagicMode();
     }
 
     // Freund hinzufügen
