@@ -31,6 +31,12 @@ function updateGullSettings() {
     
     // Geschwindigkeit basierend auf Auswahl setzen
     switch(gullSpeedSelect.value) {
+        case 'extra-slow':
+            gullSpeed = 2000; // extrem langsam: 2000ms
+            break;
+        case 'very-slow':
+            gullSpeed = 1200; // sehr langsam: 1200ms
+            break;
         case 'slow':
             gullSpeed = 800; // langsam: 800ms
             break;
